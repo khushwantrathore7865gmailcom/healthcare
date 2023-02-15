@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from doctor.models import doctor, Doctorrequest, Nurse
 from .models import personalInfo
+from .forms import personalInfoForm
 
 
 # Create your views here.
@@ -9,9 +10,15 @@ def Home(request):
 
 
 def PatientForm(request):
+    form = personalInfoForm()
     if request.method == 'POST':
-        name = request.method.get('name')
-    return render(request, 'PatientForm.html')
+        form = personalInfoForm(request.POST)
+    return render(request, 'PatientForm.html', {'form': form})
+
+
+def PatientList(request):
+    per = personalInfoForm.objects.all()
+    return render(request, 'AllPatient.html', {'per': per})
 
 
 def sendRequest(request):
@@ -20,5 +27,5 @@ def sendRequest(request):
         department = request.method.get('department')
         pInfo = personalInfo.objects.get(phonenumber=phn)
 
-        r = Doctorrequest( Nurse=request.user, patient=pInfo,department=department)
+        r = Doctorrequest(Nurse=request.user, patient=pInfo, department=department)
         r.save()
