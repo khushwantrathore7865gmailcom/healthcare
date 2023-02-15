@@ -6,16 +6,16 @@ from patient.models import personalInfo
 # Create your models here.
 class doctor(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=250)
-    gender = models.CharField(max_length=250)
-    department = models.CharField(max_length=250)
+    name = models.CharField(max_length=250,blank=True)
+    gender = models.CharField(max_length=250,blank=True)
+    department = models.CharField(max_length=250,blank=True)
 
 
 class Nurse(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=250)
-    gender = models.CharField(max_length=250)
-    department = models.CharField(max_length=250)
+    name = models.CharField(max_length=250,blank=True)
+    gender = models.CharField(max_length=250,blank=True)
+    department = models.CharField(max_length=250,blank=True)
 
 
 class Doctorrequest(models.Model):
