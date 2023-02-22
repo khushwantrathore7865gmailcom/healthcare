@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
-from .models import Doctorrequest, doctor,Nurse
+from .models import Doctorrequest, doctor, Nurse
 from patient.models import personalInfo
 from .forms import SignUpForm
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth import login, authenticate
+
 
 class SignUpViewDoctor(View):
     form_class = SignUpForm
@@ -30,7 +31,7 @@ class SignUpViewDoctor(View):
                 user = form.save(commit=False)
                 user.username = user.email
                 user.user_name = user.email
-                user.is_active = False  # change this to False after testing
+                user.is_active = True  # change this to False after testing
                 user.save()
                 new_candidate = doctor(user=user)  # change is email to False after testing
                 new_candidate.save()
@@ -65,6 +66,8 @@ def login_Doctor(request):
 
         context = {}
         return render(request, 'partner_company/login.html', context)
+
+
 class SignUpViewNurse(View):
     form_class = SignUpForm
 
@@ -87,8 +90,7 @@ class SignUpViewNurse(View):
                 user = form.save(commit=False)
                 user.username = user.email
                 user.user_name = user.email
-                user.is_active = False  # change this to False after testing
-                user.is_company = True
+                user.is_active = True
                 user.save()
                 new_candidate = Nurse(user=user)  # change is email to False after testing
                 new_candidate.save()
@@ -97,8 +99,6 @@ class SignUpViewNurse(View):
                 # return render(request, self.template_name, {'form': form})
         else:
             return render(request, self.template_name, {'form': form})
-
-
 
 
 def login_Nurse(request):
@@ -122,6 +122,7 @@ def login_Nurse(request):
         context = {}
         return render(request, 'partner_company/login.html', context)
 
+
 # Create your views here.
 def dashboard(request):
     user = request.user
@@ -142,4 +143,3 @@ def acceptrequest(request, pk):
 def patientInfo(request, pk):
     pers = personalInfo.objects.get(pk=pk)
     return render(request, 'patientInfo.html', {'per': pers})
-

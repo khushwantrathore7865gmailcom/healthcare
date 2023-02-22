@@ -136,11 +136,13 @@ class Breath(models.Model):
     Enter_Spo2_Room = models.DecimalField(max_digits=5, decimal_places=2, default=0.0)
 
 class Exposure(models.Model):
+    user = models.ForeignKey(personalInfo, on_delete=models.CASCADE, default="")
     auxilary_temp = models.DecimalField(max_digits=5,decimal_places=2,default=0.0)
     select_color = models.CharField(max_length=25,choices=color)
     surface_finding = models.CharField(max_length=25, choices=finding)
 
 class Circulation(models.Model):
+    user = models.ForeignKey(personalInfo, on_delete=models.CASCADE, default="")
     Heart_Rate = models.IntegerField(default=0)
     Peripheral_Pulse = models.CharField(max_length=25, choices=N_P)
     Central_Pulse = models.CharField(max_length=25,choices=N_P)
@@ -151,6 +153,7 @@ class Circulation(models.Model):
     BP_pulse = models.IntegerField(default=0)
 
 class Disability(models.Model):
+    user = models.ForeignKey(personalInfo, on_delete=models.CASCADE, default="")
     Select_AVPU_Response = models.CharField(max_length=25,choices=RSVP)
     Left_Pupil = models.IntegerField(default=0)
     Right_Pupil = models.IntegerField(default=0)
@@ -173,6 +176,7 @@ class Final_Physchological_Assessment(models.Model):
     Cardiorespitary_Arrest = models.CharField(max_length=25, choices=y_n,blank=True)
 
 class Triange_Classification(models.Model):
+    user = models.ForeignKey(personalInfo, on_delete=models.CASCADE, default="")
     select_classification_level = models.CharField(max_length=100,choices=lvl)
 
 
