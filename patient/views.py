@@ -20,12 +20,13 @@ def PatientList(request):
     per = personalInfoForm.objects.all()
     return render(request, 'AllPatient.html', {'per': per})
 
-
-def sendRequest(request):
+def PatientHome(request,pk):
+    pInfo = personalInfo.objects.get(pk=pk)
+    return render(request, 'PatientHome.html', {'per': pInfo})
+def sendRequest(request, pk):
     if request.method == "POST":
-        phn = request.method.get('phn')
         department = request.method.get('department')
-        pInfo = personalInfo.objects.get(phonenumber=phn)
+        pInfo = personalInfo.objects.get(pk=pk)
 
         r = Doctorrequest(Nurse=request.user, patient=pInfo, department=department)
         r.save()

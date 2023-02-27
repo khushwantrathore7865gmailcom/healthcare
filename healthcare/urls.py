@@ -15,8 +15,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from doctor.views import SignUpViewDoctor,SignUpViewNurse,login_Doctor,login_Nurse,dashboard,acceptrequest,patientInfo
-from patient.views import Home,personalInfo,PatientList,sendRequest
+
+from doctor.views import SignUpViewDoctor, SignUpViewNurse, login_Doctor, login_Nurse, dashboard, acceptrequest, \
+    patientInfo
+from patient.views import Home, PatientList, sendRequest,PatientForm,PatientHome
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('/signin',SignUpViewNurse.as_view),
+    path('/login',login_Nurse),
+    path('/',Home),
+    path('/NewPatient',PatientForm),
+    path('PatientList',PatientList),
+    path('/sendRequest/<int:pk>',sendRequest),
+    path('/PatientHome/<int:pk>',PatientHome),
+    path('/doctor/signin',SignUpViewDoctor.as_view),
+    path('/doctor/login',login_Doctor),
+    path('/doctor',dashboard),
+    path('/doctor/accept/<int:pk>',acceptrequest),
+    path('/doctor/Patientinfo/<int:pk>',patientInfo),
+
+
 ]
